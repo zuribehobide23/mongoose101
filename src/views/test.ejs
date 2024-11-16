@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Ikasleak API</title>
+    <script>
+        async function fetchIkasleak() {
+            const response = await fetch('/api/ikasleak');
+            const data = await response.json();
+            document.getElementById('ikasleak').innerText = JSON.stringify(data, null, 2);
+        }
+
+        async function createIkasle() {
+            const izena = document.getElementById('izena').value;
+            const adina = document.getElementById('adina').value;
+            const email = document.getElementById('email').value;
+
+            const response = await fetch('/api/ikasleak', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ izena, adina, email })
+            });
+
+            const data = await response.json();
+            document.getElementById('newIkasle').innerText = JSON.stringify(data, null, 2);
+        }
+    </script>
+</head>
+<body>
+    <h1>Test Ikasleak API</h1>
+    <button onclick="fetchIkasleak()">Get Ikasleak</button>
+    <pre id="ikasleak"></pre>
+
+    <h2>Create Ikasle</h2>
+    <form onsubmit="event.preventDefault(); createIkasle();">
+        <label for="izena">Izena:</label>
+        <input type="text" id="izena" name="izena" required>
+        <br>
+        <label for="adina">Adina:</label>
+        <input type="number" id="adina" name="adina" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <button type="submit">Create</button>
+    </form>
+    <pre id="newIkasle"></pre>
+</body>
+</html>
