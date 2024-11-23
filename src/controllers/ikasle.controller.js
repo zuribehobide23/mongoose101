@@ -33,15 +33,17 @@ exports.getIkasleById = async (req, res, next) => {
 
 exports.deleteIkasleById = async (req, res, next) => {
     try {
-        const ikasle = new Ikasle(req.body);
-        const deletedIkasle = await ikasle.findByIdAndDelete();
+        const deletedIkasle = await Ikasle.findByIdAndDelete(req.params.id);
+        if (!deletedIkasle) {
+            return res.status(404).json({ message: 'Ikaslea not found' });
+        }
         res.status(201).json(deletedIkasle);
     } catch (error) {
         next(error);
     }
 };
 
-exports.findIkasleById = async (req, res, next) => {
+exports.editIkasleById = async (req, res, next) => {
     try {
         const ikasle = await Ikasle.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
         if (!ikasle) {
