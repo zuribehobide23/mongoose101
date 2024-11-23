@@ -1,4 +1,0 @@
-docker: zerbitzu birtualak kudeatzeko. sistema eragile desberdinak ns que
-docker rm ...
-
-curl.exe: bidali post bidez gure api-ra json bat eta email-a
