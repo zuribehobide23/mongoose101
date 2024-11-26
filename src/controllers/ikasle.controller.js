@@ -54,5 +54,3 @@ exports.editIkasleById = async (req, res, next) => {
         next(error);
     }
 };
-
-// Gehitu beste kontroladoreak...
