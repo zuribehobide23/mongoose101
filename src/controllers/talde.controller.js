@@ -32,7 +32,7 @@ exports.assignIkasleToTalde = async (req, res, next) => {
 
 exports.getTaldeak = async (req, res, next) => {
    try {
-       const taldeak = await Taldea.find();
+       const taldeak = await Taldea.find().populate('ikasleak');
        res.json(taldeak);
    } catch (error) {
        next(error);

@@ -26,6 +26,23 @@
                 option.textContent = ikasle.email;
                 emailBox.appendChild(option);
             });
+
+            const ikasleBox = document.getElementById('ikasleBox');
+            ikasleBox.innerHTML = '';
+
+            const defaultOption2 = document.createElement('option');
+            defaultOption2.value = '';
+            defaultOption2.textContent = 'Choose an ikasle';
+            defaultOption2.disabled = true;
+            defaultOption2.selected = true;
+            ikasleBox.appendChild(defaultOption2);
+
+            data.forEach(ikasle => {
+                const option = document.createElement('option');
+                option.value = ikasle._id; 
+                option.textContent = ikasle.email;
+                ikasleBox.appendChild(option);
+            });
         }
 
         async function createIkasle() {
@@ -44,7 +61,6 @@
             const data = await response.json();
             document.getElementById('newIkasle').innerText = JSON.stringify(data, null, 2);
             fetchIkasleak()
-            fetchTaldeak()
         }
 
         async function deleteIkasleById() {
@@ -119,34 +135,17 @@
                 option.textContent = talde.izena;
                 taldeBox.appendChild(option);
             });
-
-            const ikasleBox = document.getElementById('ikasleBox');
-            ikasleBox.innerHTML = '';
-
-            const defaultOption2 = document.createElement('option');
-            defaultOption2.value = '';
-            defaultOption2.textContent = 'Choose an ikasle';
-            defaultOption2.disabled = true;
-            defaultOption2.selected = true;
-            ikasleBox.appendChild(defaultOption2);
-
-            data.forEach(ikasle => {
-                const option = document.createElement('option');
-                option.value = ikasle._id; 
-                option.textContent = ikasle.email;
-                ikasleBox.appendChild(option);
-            });
         }
 
         async function createTalde() {
-            const TaldeIzena = document.getElementById('TaldeIzena').value;
+            const izena = document.getElementById('TaldeIzena').value;
 
             const response = await fetch('/api/taldeak', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ TaldeIzena })
+                body: JSON.stringify( { izena, ikasleak: [] } )
             });
 
             const data = await response.json();
